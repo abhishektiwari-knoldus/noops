@@ -30,7 +30,7 @@ def run_terraform():
 
         if "Apply complete! Resources:" in apply_result.stdout:
 
-            return jsonify({"status": "success", "message": "We have deployed a docker container in local using terraform!"}), 200
+            return jsonify({"status": "success", "message": "Terraform Successful"}), 200
         else:
             return jsonify({"status": "error", "message": "Terraform apply failed or had changes."}), 500
     

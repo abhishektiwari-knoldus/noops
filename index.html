@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NoOps</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+
+            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        }
+
+        header {
+            padding: 13px 20px;
+            text-align: center;
+            display: flex;
+            position: fixed;
+            top: 0; /* Ensure it's fixed at the top */
+            left: 0; /* Align it to the left */
+            right: 0; /* Stretch to the right edge */
+            align-items: center;
+            justify-content: space-between;
+            background-image: linear-gradient(to right, #6B21B9, #991b1b);
+            height: 60px; /* Define the height of the header */
+            z-index: 1000; /* Ensure it stays above other content */
+        }
+        #pdf{
+            text-align: center;
+            display: flex;
+            position: fixed;
+            top: 65px; /* Ensure it's fixed at the top */
+            left: 75%; /* Align it to the left */
+            right: 0; /* Stretch to the right edge */
+            align-items: center;
+            justify-content: space-between;
+            background-color: white;
+            width: 120px;
+            padding: 10px 10px;
+            border-radius: 10px;
+            display: none;
+            border:1px solid rgba(0, 0, 0, 0.646);
+            z-index: 1000; /* Ensure it stays above other content */
+            cursor: pointer;
+
+        }
+        #pdf:hover{
+            background-color: #1a0b3216;
+            border: 1px solid white;
+        }
+        #pdf:hover a{
+            color: white;
+        }
+        #pdf a {
+            text-decoration: none;
+            color: black;
+        }
+
+        header:hover {
+            background-image: linear-gradient(to right, #fff, #fff);
+            color: black;
+        }
+
+        header:hover nav a {
+            color: black;
+        }
+
+        header:hover #button {
+            color: white;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            margin-left: 13%
+        }
+
+        nav a {
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 900;
+
+        }
+
+        header:hover nav a:hover {
+            background-image: linear-gradient(to right, #6B21B9, #991b1b);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .container {
+            height: 50%;
+            padding-left: 5rem;
+            padding-right: 5rem;
+            padding-top: 200px;
+            padding-bottom: 30px;
+            margin: 0;
+            background-image: linear-gradient(to right, #6B21B9, #991b1b);
+        }
+
+        .container h1 {
+            font-size: 8rem;
+            color: white;
+            font-weight: 700;
+            line-height: 1;
+            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            text-align: left;
+            margin-top: 0;
+            width: 60%;
+        }
+
+        .container p {
+            font-size: 1.875rem;
+            line-height: 2.25rem;
+            /* lg */
+            color: white;
+            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+            margin-top: -3.25rem;
+            font-weight: 420;
+            /* Resetting margin-top */
+        }
+
+        .why {
+            padding-left: 40px;
+            padding-right: 40px;
+            padding: 1.25rem;
+        }
+
+        .why1 {
+            margin: 60px;
+            display: flex;
+            padding-top: 0;
+            flex-direction: row;
+            box-shadow:
+                -5px 0 5px -5px rgba(0, 0, 0, 0.1),
+                5px 0 5px -5px rgba(0, 0, 0, 0.1),
+                0 10px 5px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .card {
+            padding: 30px;
+        }
+
+        .card p {
+            margin: 1rem;
+            line-height: 25px;
+            word-spacing: 1px;
+        }
+
+        .imagecard {
+            margin: auto;
+            padding: 50px;
+        }
+
+        .imagecard img {
+            width: 700px;
+            height: 350px;
+        }
+
+        .ppt-viewer {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            border: 1px solid #ccc;
+            margin: 20px auto;
+            /* Center the viewer horizontally */
+        }
+
+        .controls {
+            margin: 20px 0;
+        }
+
+        .controls button {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 0 10px;
+       }
+
+        .controls button:hover {
+            background-color: #555;
+        }
+
+        footer {
+            background-image: linear-gradient(284.04deg, #200E3D 0%, #60166C 25.33%, #4E2A8C 52.07%, #1A0B32 100%);
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+        }
+
+        .logo {
+            width: 80px;
+            /* Adjust the width as needed */
+            height: auto;
+            margin-left: 20px;
+            /* Adjust margin for spacing */
+        }
+
+        .button {
+    margin-left: 30px;
+    display: inline-block;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 400;
+    color: #fff;
+    background-color: #ff0022; /* Bright blue background */
+    border: none;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+        }
+
+        #button:hover {
+            background-image: linear-gradient(to right, #6B21B9, #991b1b);
+            background-clip: unset;
+            color: white;
+        }
+
+        .a:hover {
+            background-color: white;
+        }
+
+.try-now-button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.try-now-button:hover {
+    background-color: #0056b3;
+}
+
+.try-now-button:active {
+    background-color: #004494;
+    transform: scale(0.98);
+}
+    </style>
+    <script>
+        function showPdf(){
+            if(document.getElementById("pdf").style.display=="block")
+            document.getElementById("pdf").style.display="none";
+        else
+        document.getElementById("pdf").style.display="block";
+        }
+
+
+function runTerraform() {
+    const button = document.getElementById("tryNowBtn");
+    const output = document.getElementById("output");
+
+    output.textContent = "";
+    
+    // Disable button
+    button.disabled = true;
+    button.textContent = "Processing..."
+    // Make API call to trigger Terraform
+    fetch('http://localhost:5005/run-terraform', {
+        method: 'POST'
+    
+    }).then(response => response.json())
+        .then(data => {
+          
+            const bucketUrl = data.bucket_url;
+                    
+            if (bucketUrl) {
+               
+                const link = document.createElement("a");
+                link.href = bucketUrl;
+                link.textContent = bucketUrl;
+                link.target = "_blank";  
+                output.appendChild(link);
+            } else {
+                output.textContent = "Error: No bucket URL returned";
+            }  
+        })
+        .catch(error => {
+            output.textContent = "Error: " + error.message;
+        })
+        .finally(() => {
+            button.textContent = "Try Now";
+            button.disabled = false;  // Re-enable the button after completion
+        });
+        }
+
+
+    </script>
+</head>
+
+<body>
+    <header class="a">
+        <nav>
+            <a href="index.html#what">What</a>
+            <a href="index.html#why">Why</a>
+            <a href="index.html#Characteristics">Characteristics</a>
+            <a href="index.html#NoOpsArc">Architecture​</a>
+            <a href="index.html#Benefits">Benefits</a>
+            <a href="index.html#NoOps">NoOps Vs DevOps</a>
+            <a href="index.html#genaidisruption">Try Automation</a>
+            <a href="index.html#demo">DEMO</a>
+            <a href="javascript:void(0)" onclick="showPdf()">NoOPS REFERENCE</a>
+                
+            <!-- <a href="/">Home</a> -->
+            <a href="https://www.nashtechglobal.com/about-us" target="_blank">About</a>
+            <a href="https://www.nashtechglobal.com/#contact-us-form" class="button" id="button">Contact</a>
+                
+        </nav>
+    </header>
+    <div id="pdf">
+        <a href="pdf/noops.pdf">NoOps Guide</a>
+    </div>
+    <div class="container">
+        <img src="logo/logo.png" alt="Logo" class="logo"
+            style="height: 110px; width: 110px;margin-left: -10px; margin-top: -1000px;">
+        <div style="padding-top: 20px;">
+            <h1>About NoOps​</h1>
+            <p>The Future of Operations in the DevOps Era</p>
+        </div>
+    </div>
+    <div class="why" id="what">
+        <div class="why1">
+            <div class="card">
+                <h1>NoOps​</h1>
+                <p>
+                    NoOps (No Operations) is an IT paradigm focused on automating all aspects of software deployment
+                    and operations to the point where a dedicated operations team is no longer necessary. The concept
+                    extends the principles of DevOps by pushing automation to the extreme, where developers handle the
+                    full lifecycle of an application, including infrastructure management, monitoring, and updates, 
+                    through sophisticated automation tools and CI/CD pipelines. This approach relies heavily on cloud-native
+                    technologies, infrastructure as code (IaC), and platform-as-a-service (PaaS) solutions, enabling rapid
+                    deployment and scaling with minimal human intervention. While NoOps is ideal for highly automated
+                    environments, it may not be suitable for all organizations, particularly those with complex legacy systems.
+                </p>
+            </div>
+            <div class="imagecard">
+                <img src="image/pic1.png" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="why" id="why">
+        <div class="why1">
+            <div class="imagecard">
+                <img src="image/pic2.png" alt="">
+            </div>
+            <div class="card">
+                <h1>Why NoOps ​
+                    ​</h1>
+                <p>
+                    NoOps is embraced to streamline software development and deployment by automating operational tasks, thereby reducing the need for a dedicated operations team. The primary motivation behind NoOps is to enable faster, more reliable software delivery by minimizing human intervention and eliminating bottlenecks associated with traditional operations. In a NoOps environment, developers use advanced automation tools to manage infrastructure, monitoring, and deployment processes, allowing them to focus more on coding and less on operational concerns. This approach reduces human error, accelerates release cycles, and improves scalability and flexibility, especially in cloud-native environments. By automating operations, NoOps aligns closely with business objectives, promoting efficiency, reducing operational costs, and supporting continuous delivery and innovation. While ideal for modern, automated environments, NoOps may require a significant investment in automation tools and may not suit all organizations, particularly those with complex legacy systems.                </p>
+            </div>
+        </div>
+    </div>
+    <div class="why" id="Characteristics">
+        <div class="why1">
+            <div class="card">
+                <h1>Key Characteristics of NoOps​</h1>
+                <p>
+                    NoOps is characterized by several key features that collectively streamline IT operations and enhance efficiency. At its core, NoOps relies on full automation to manage routine tasks such as deployment, monitoring, scaling, and backups, significantly reducing the need for manual intervention and ensuring greater consistency and reliability. It leverages cloud-native technologies, including serverless computing and managed services, which abstract away the complexities of underlying infrastructure management, allowing teams to focus on higher-level functions. Integration with Continuous Integration and Continuous Deployment (CI/CD) pipelines is another crucial aspect of NoOps, as it automates the processes of building, testing, and deploying code changes, thereby streamlining the development lifecycle. Additionally, NoOps environments are designed with self-healing capabilities, enabling systems to automatically detect and recover from failures without human oversight, further enhancing operational resilience and reliability.
+                </p>
+            </div>
+            <div class="imagecard">
+                <img src="image/pic3.png" alt="">
+            </div>
+        </div>
+    </div>
+
+    <div class="why" id="NoOpsArc">
+        <div class="why1" style="display: block;">
+            <div class="card">
+                <h1>NoOps Architecture​</h1>
+                <p>
+                    This diagram illustrates a NoOps architecture, where the majority of operational tasks are automated, minimizing human intervention. It begins with a developer committing code to a version control system, which then triggers the CI/CD pipeline. This pipeline automates various processes, including building, testing, and deploying the code. Once the code is deployed, the cloud infrastructure becomes the central hub, supported by various automation mechanisms.
+                </p>
+                <p>
+                    AI-powered monitoring continuously analyzes the infrastructure to ensure smooth operations, while infrastructure as code defines the system setup, ensuring consistency and scalability. Serverless computing further enhances the efficiency of resource management, and continuous optimization helps in improving the performance of the cloud infrastructure.
+                </p>
+            </div>
+                <img src="image/pic8.png" width="1600" height="700">
+                <div class="card">
+                <p> 
+                    This architecture also includes several important features for infrastructure management. Automated incident response quickly handles issues as they arise, ensuring minimal downtime. Automated operations and security automation safeguard the system, while automated backups ensure data integrity. Self-healing and auto-scaling mechanisms allow the infrastructure to adapt and recover from issues on its own, maintaining optimal performance without manual intervention.
+                </p>
+                <p>
+                    Users interact with the cloud infrastructure through a self-service portal, giving them the ability to manage resources and make changes without needing direct support from the operations team. This highly automated system forms the backbone of a NoOps environment, where manual operations are largely replaced by smart, automated processes.
+                </p>
+                </div>
+        </div>
+
+    </div>
+
+    <div class="why" id="Benefits">
+        <div class="why1">
+            <div class="card">
+
+                <img width="1600" height="700" src="image/pic6.png"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <div class="why" id="NoOps">
+        <div class="why1" style="display: block;">
+            <div class="card">
+                <h1>NoOps vs. DevOps​</h1>
+                <p>
+                    While NoOps and DevOps share the goal of improving operational efficiency, they differ in their approach. DevOps emphasizes collaboration between development and operations teams to streamline processes, whereas NoOps focuses on automating operations to the extent that it minimizes the need for manual intervention.
+
+                    In a DevOps environment, operations teams play a crucial role in managing and maintaining systems, whereas in a NoOps model, many of these responsibilities are automated, leading to a more streamlined and hands-off approach.
+                </p>
+            </div>
+                <img src="image/pic7.png" width="1600" height="700">
+        </div>
+    </div>
+
+    <div class="why" id="genaidisruption">
+        <div class="why1">
+            <div class="imagecard">
+                <img src="image/pic9.png" alt="" style="height: 470px;">
+            </div>
+            <div class="card">
+                <h1>From Manual Management to Automated Efficiency ​
+                    ​</h1>
+                <p> If you want to test that how automation works then you can click on "Try Now" button below, a process runs in the background to create and host a static web page on Google Cloud. Here's how it works:​</p>
+                <p>
+                    First, a Python API is triggered. This API uses Terraform, a tool for automating cloud infrastructure, to create a Google Cloud Storage bucket. The bucket will store the static web page. Once the bucket is successfully created, the static page is automatically uploaded to it. Terraform ensures the bucket and its contents are publicly accessible so that anyone with the URL can view the page.
+
+                </p>
+                <p>
+                    After Terraform completes the process, the Python API retrieves the URL of the newly created bucket. This URL is then returned to the web page, allowing you to view the hosted static page. All of these steps are performed automatically without any further input required from you. Simply click "Try Now," and in a few moments, you'll have access to the hosted page URL.
+                </p>
+                <button class="try-now-button" id="tryNowBtn" onclick="runTerraform()">Try Now</button>
+                <p id="output"></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="why" id="demo">
+        <div class="why1">
+            <div class="card">
+
+                <img width="1600" height="700" src="image/pic4.png"></iframe>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="why" id="demo">
+        <div class="why1">
+            <div class="card">
+                <h1>DEMO ​
+                    ​</h1>
+
+                <iframe width="1600" height="700" src="https://www.youtube.com/embed/oaFHz90jBik?si=F9cuznfUFXBi9YHV"
+                    title="YouTube video player" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -2,10 +2,22 @@ from flask import Flask, jsonify
 import subprocess
 from flask_cors import CORS
 import json
+import threading
+import time
  
 
 app = Flask(__name__)
 CORS(app)
+
+# Function to run terraform destroy after 5 minutes
+def destroy_after_delay():
+    time.sleep(300)
+    
+    try:
+        destroy_result = subprocess.run(["terraform", "destroy", "--auto-approve"], check=True, text=True, capture_output=True)
+        print("Terraform destroy successful:", destroy_result.stdout)
+    except subprocess.CalledProcessError as e:
+        print(f"Error during terraform destroy: {e}")
  
 
 @app.route('/run-terraform', methods=['POST'])
@@ -22,17 +34,20 @@ def run_terraform():
 
         output = json.loads(output_result.stdout)
 
-            # Return the output as JSON
+
+        bucket_url = output.get("bucket_url", {}).get("value", "No URL found")
+          
+        # Start the background thread to destroy the resources after 5 minutes  
+        destroy_thread = threading.Thread(target=destroy_after_delay)
+        destroy_thread.start()
+
+        # Return the output as JSON
         return jsonify({
-            "bucket_url": output.get("bucket_url", {}).get("value", "No URL found")
-        })
+            "status": "success",
+            "message": "Terraform apply successful",
+            "bucket_url": bucket_url
+        }), 200
 
-
-        if "Apply complete! Resources:" in apply_result.stdout:
-
-            return jsonify({"status": "success", "message": "Terraform apply Successful"}), 200
-        else:
-            return jsonify({"status": "error", "message": "Terraform apply failed or had changes."}), 500
     
     except subprocess.CalledProcessError as e:
         print(f"Error: {e}")
